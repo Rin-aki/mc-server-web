@@ -1,134 +1,179 @@
-"use client";
-
 import Link from "next/link";
-import { 
-  Download, 
-  ChevronLeft, 
-  Monitor, 
-  Map as MapIcon, 
-  Zap, 
-  Gamepad2,
+import {
+  ChevronLeft,
+  Download,
   ExternalLink,
-  PlusCircle
+  Gamepad2,
+  MessageCircle,
+  Monitor,
+  ShieldCheck,
+  Sparkles,
+  Wifi,
 } from "lucide-react";
 import CopyIP from "@/components/CopyIP";
 
+const checklist = [
+  "推荐使用 Minecraft Java 版 1.20.1 客户端。",
+  "原版客户端即可进入，不强制安装 Mod。",
+  "若想获得更好的帧数与地图体验，可下载推荐整合包。",
+  "首次加入前建议先看一遍服规，避免因为不熟悉规则踩线。",
+];
+
+const starterSteps = [
+  {
+    title: "准备启动器或客户端",
+    description:
+      "如果你已经有 Java 版客户端，直接使用即可。如果还没有，推荐使用 PCL2 作为启动器，界面直观、下载方便，适合新手。",
+    icon: Monitor,
+    action: {
+      href: "https://pcl2.aoe.top/",
+      label: "下载 PCL2 启动器",
+      external: true,
+    },
+  },
+  {
+    title: "选择原版或整合包进入",
+    description:
+      "你可以直接用原版客户端加入；如果更看重帧数优化、小地图和基础体验增强，也可以使用我们准备的推荐整合包。",
+    icon: Gamepad2,
+    action: {
+      href: "/download/modpack.zip",
+      label: "下载推荐整合包",
+      external: false,
+    },
+  },
+  {
+    title: "添加服务器并开始游玩",
+    description:
+      "进入多人游戏后点击“添加服务器”，名称随意填写，地址直接粘贴下方 IP。第一次进服后，建议先熟悉出生点与基础规则。",
+    icon: Wifi,
+    action: null,
+  },
+];
+
 export default function StartPage() {
   const SERVER_IP = "mc.rinakii.com";
-  const PCL2_URL = "https://pcl2.aoe.top/"; // PCL2 官方爱发电下载页
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white py-20 px-6">
-      <div className="max-w-4xl mx-auto">
-        {/* 返回首页 */}
-        <Link href="/" className="inline-flex items-center gap-2 text-slate-500 hover:text-white mb-12 transition-colors group font-medium">
-          <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          返回主站
+    <main className="section-shell px-1 py-10 sm:py-16">
+      <div className="mb-8">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-white/6 hover:text-white"
+        >
+          <ChevronLeft className="h-4 w-4" /> 返回首页
         </Link>
+      </div>
 
-        {/* 顶部介绍 */}
-        <div className="mb-16">
-          <h1 className="text-5xl font-black mb-6 bg-gradient-to-r from-white to-slate-500 bg-clip-text text-transparent">
-            加入 XPLUS 冒险
-          </h1>
-          <div className="flex flex-wrap gap-4">
-            <span className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-sm font-bold flex items-center gap-2">
-              <Zap className="w-4 h-4" /> 纯净生存体验
-            </span>
-            <span className="px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 text-sm font-bold flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4" /> 原版 MC 即可进入
-            </span>
-          </div>
-        </div>
+      <section className="glass-panel rounded-[36px] px-6 py-10 sm:px-10 sm:py-14">
+        <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+          <div>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-sky-400/20 bg-sky-500/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.28em] text-sky-300">
+              <Sparkles className="h-4 w-4" /> Quick Start
+            </div>
+            <h1 className="text-4xl font-black text-white sm:text-5xl">新玩家入服指南</h1>
+            <p className="mt-5 max-w-3xl text-base leading-8 text-slate-300">
+              这页是给第一次接触 XPLUS 的玩家准备的。如果你只是想尽快上服，按下面的步骤来就够了；如果你想获得更稳定的游玩体验，也可以顺手把推荐整合包和社区入口一起配好。
+            </p>
 
-        <div className="space-y-10">
-          {/* 步骤 1：启动器 */}
-          <div className="relative pl-12">
-          <div className="absolute left-0 top-0 w-8 h-8 bg-white text-black rounded-lg flex items-center justify-center font-black">1</div>
-          <h2 className="text-2xl font-bold mb-4">下载启动器</h2>
-          <p className="text-slate-400 mb-6 leading-relaxed">
-            如果你还没有 Minecraft 启动器，我们强烈推荐使用 <span className="text-white font-bold">PCL2</span>。它界面简洁、下载速度快且完全免费。
-          </p>
-          <a 
-            href={PCL2_URL}
-            target="_blank"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-slate-100 text-black rounded-xl font-bold hover:bg-white transition-all active:scale-95 shadow-lg shadow-white/5"
-          >
-            <ExternalLink className="w-4 h-4" /> 下载 PCL2 启动器
-          </a>
-          </div>
-
-          {/* 步骤 2：游戏版本 */}
-          <div className="relative pl-12 border-l-2 border-white/5 pb-4">
-            <div className="absolute left-[-17px] top-0 w-8 h-8 bg-blue-500 text-white rounded-lg flex items-center justify-center font-black shadow-[0_0_15px_rgba(59,130,246,0.5)]">2</div>
-            <h2 className="text-2xl font-bold mb-4">准备游戏环境</h2>
-            
-            <div className="grid md:grid-cols-2 gap-4">
-              {/* 原版说明 */}
-              <div className="p-6 bg-white/[0.02] border border-white/5 rounded-2xl">
-                <h3 className="font-bold mb-2 flex items-center gap-2 text-slate-200">
-                  <Gamepad2 className="w-4 h-4" /> 原版进入
-                </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
-                  本服务器基于原版核心，你可以使用任何 1.20.1 版本的原版客户端直接连接。
-                </p>
-              </div>
-
-              {/* 整合包说明 */}
-              <div className="p-6 bg-blue-500/5 border border-blue-500/20 rounded-2xl ring-1 ring-blue-500/20">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="font-bold flex items-center gap-2 text-blue-400">
-                    <Monitor className="w-4 h-4" /> 推荐整合包
-                  </h3>
-                  <span className="text-[10px] bg-blue-500 text-white px-2 py-0.5 rounded">推荐</span>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {checklist.map((item) => (
+                <div key={item} className="rounded-2xl border border-white/8 bg-black/20 p-4 text-sm leading-7 text-slate-300">
+                  <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-500/12 text-emerald-300">
+                    <ShieldCheck className="h-4 w-4" />
+                  </div>
+                  {item}
                 </div>
-                <ul className="text-xs text-slate-400 space-y-2 mb-6">
-                  <li className="flex items-center gap-2">✓ 内置物理优化、大幅提升 FPS</li>
-                  <li className="flex items-center gap-2">✓ 包含 Xaero 小地图 & 皮肤显示</li>
-                  <li className="flex items-center gap-2">✓ 预设精美光影，画质更佳</li>
-                </ul>
-                <a 
-                  href="/download/modpack.zip"
-                  className="flex items-center justify-center gap-2 w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-xl text-sm font-bold transition-all"
-                  download
-                >
-                  <Download className="w-4 h-4" /> 下载 XPLUS 整合包
-                </a>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* 步骤 3：添加服务器 */}
-          <div className="relative pl-12">
-            <div className="absolute left-0 top-0 w-8 h-8 bg-emerald-500 text-black rounded-lg flex items-center justify-center font-black shadow-[0_0_15px_rgba(16,185,129,0.5)]">3</div>
-            <h2 className="text-2xl font-bold mb-4">连接服务器</h2>
-            <div className="bg-white/[0.03] border border-white/5 p-6 rounded-3xl">
-              <ol className="text-slate-400 text-sm space-y-4 mb-8">
-                <li className="flex gap-3">
-                  <span className="text-emerald-500 font-mono">01.</span>
-                  启动游戏，点击菜单中的 <strong className="text-white">“多人游戏”</strong>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-emerald-500 font-mono">02.</span>
-                  点击下方按钮 <strong className="text-white">“添加服务器”</strong>
-                </li>
-                <li className="flex gap-3">
-                  <span className="text-emerald-500 font-mono">03.</span>
-                  名称可随意，地址请填入下方的服务器 IP
-                </li>
-              </ol>
+          <div className="rounded-[28px] border border-emerald-400/20 bg-emerald-500/10 p-6">
+            <p className="text-xs font-bold uppercase tracking-[0.28em] text-emerald-300">Join Now</p>
+            <h2 className="mt-3 text-2xl font-black text-white">先把地址收好</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-200/90">
+              加入服务器最关键的信息就这一条。点击复制后，去 Minecraft 的“多人游戏”里粘贴即可。
+            </p>
+            <div className="mt-6">
               <CopyIP ip={SERVER_IP} />
             </div>
+            <div className="mt-6 flex flex-col gap-3">
+              <a
+                href="https://qm.qq.com/q/XRU6o6bOE4"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-bold text-black transition hover:bg-emerald-200"
+              >
+                <MessageCircle className="h-4 w-4" /> 加入官方群聊
+              </a>
+              <Link
+                href="/rules"
+                className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-black/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/6"
+              >
+                查看服规与注意事项
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-  );
-}
+      </section>
 
-// 补充一个简单的图标组件以防缺失
-function ShieldCheck({ className }: { className?: string }) {
-  return (
-    <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+      <section className="mt-8 grid gap-5 lg:grid-cols-3">
+        {starterSteps.map(({ title, description, icon: Icon, action }, index) => (
+          <div key={title} className="glass-panel rounded-[30px] p-6 sm:p-7">
+            <div className="mb-5 flex items-center justify-between">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/6 text-white">
+                <Icon className="h-6 w-6 text-sky-300" />
+              </div>
+              <span className="text-sm font-black text-slate-500">0{index + 1}</span>
+            </div>
+            <h2 className="text-xl font-bold text-white">{title}</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-400">{description}</p>
+            {action ? (
+              <a
+                href={action.href}
+                target={action.external ? "_blank" : undefined}
+                rel={action.external ? "noreferrer" : undefined}
+                download={action.external ? undefined : true}
+                className="mt-6 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/6"
+              >
+                {action.external ? <ExternalLink className="h-4 w-4" /> : <Download className="h-4 w-4" />}
+                {action.label}
+              </a>
+            ) : null}
+          </div>
+        ))}
+      </section>
+
+      <section className="mt-8 glass-panel rounded-[34px] p-6 sm:p-8">
+        <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-slate-400">Tips for New Players</p>
+        <h2 className="text-3xl font-black text-white">第一次进服建议这样做</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-white/8 bg-black/20 p-5">
+            <h3 className="text-lg font-bold text-white">先看出生点与公告</h3>
+            <p className="mt-2 text-sm leading-7 text-slate-400">
+              不要急着冲出去跑图。先确认出生点附近是否有公共设施、玩家留言或基础规则说明，能帮你少走很多弯路。
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/8 bg-black/20 p-5">
+            <h3 className="text-lg font-bold text-white">尽量避开他人基地起家</h3>
+            <p className="mt-2 text-sm leading-7 text-slate-400">
+              新人落脚时建议先和老玩家保持一点距离，避免资源、建筑边界和公共区域发生误会，后面合作会更顺畅。
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/8 bg-black/20 p-5">
+            <h3 className="text-lg font-bold text-white">需要帮助就进群</h3>
+            <p className="mt-2 text-sm leading-7 text-slate-400">
+              如果遇到版本、连不上、不会装整合包、找不到公共点位等问题，群聊通常比你自己摸索更快解决。
+            </p>
+          </div>
+          <div className="rounded-2xl border border-white/8 bg-black/20 p-5">
+            <h3 className="text-lg font-bold text-white">尊重规则也尊重别人的时间</h3>
+            <p className="mt-2 text-sm leading-7 text-slate-400">
+              不偷不炸不乱改公共设施，是生存服能长期稳定的底线。把这个底线守住，体验通常都会很好。
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

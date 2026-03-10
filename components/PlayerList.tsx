@@ -1,6 +1,6 @@
-// components/PlayerList.tsx
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface Player {
@@ -15,78 +15,89 @@ export default function PlayerList({ ip }: { ip: string }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let ignore = false;
+
     const fetchStatus = async () => {
       try {
-        const res = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
-        const data = await res.json();
+        const response = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
+        const data = await response.json();
+
+        if (ignore) return;
+
         if (data.online) {
-            console.log("API返回的原始数据:", data.players); // <--- 加这一行
-            setOnlineCount(data.players.online);
-            setPlayers(data.players.list || []);
-        }
-        if (data.online) {
-          setOnlineCount(data.players.online);
-          setPlayers(data.players.list || []);
+          setOnlineCount(data.players?.online ?? 0);
+          setPlayers(data.players?.list ?? []);
+        } else {
+          setOnlineCount(0);
+          setPlayers([]);
         }
       } catch (error) {
-        console.error("获取失败", error);
+        console.error("获取玩家列表失败", error);
+        if (!ignore) {
+          setOnlineCount(0);
+          setPlayers([]);
+        }
       } finally {
-        setLoading(false);
+        if (!ignore) setLoading(false);
       }
     };
+
     fetchStatus();
     const timer = setInterval(fetchStatus, 30000);
-    return () => clearInterval(timer);
+
+    return () => {
+      ignore = true;
+      clearInterval(timer);
+    };
   }, [ip]);
 
-  if (loading) return <div className="text-slate-500 animate-pulse text-center">正在点名玩家...</div>;
-
   return (
-    <div className="w-full max-w-5xl bg-[#0a0a0a] border border-white/5 rounded-3xl p-8 shadow-2xl">
-      <div className="flex items-center justify-between mb-8">
+    <div className="glass-panel rounded-[28px] p-6 sm:p-8">
+      <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h3 className="text-2xl font-black text-white flex items-center gap-3">
-            在线玩家
-            <span className="flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-            </span>
-          </h3>
-          <p className="text-slate-500 text-sm mt-1">目前有 {onlineCount} 位冒险者在线</p>
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-slate-400">Players Online</p>
+          <h3 className="text-2xl font-black text-white">在线玩家一览</h3>
+          <p className="mt-2 text-sm text-slate-400">
+            {loading ? "正在同步服务器状态..." : `当前共有 ${onlineCount} 位冒险者在线。`}
+          </p>
         </div>
+        <p className="text-xs text-slate-500">列表每 30 秒自动刷新一次</p>
       </div>
 
-      {players.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      {loading ? (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <div key={index} className="h-20 animate-pulse rounded-2xl border border-white/6 bg-white/4" />
+          ))}
+        </div>
+      ) : players.length > 0 ? (
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {players.map((player) => (
-            <div 
-              key={player.uuid} 
-              title={player.name_clean} // 鼠标悬停显示全名
-              className="flex items-center gap-3 p-3 bg-white/[0.03] border border-white/5 rounded-xl hover:bg-white/[0.08] hover:border-emerald-500/50 transition-all duration-300 group"
+            <Link
+              key={player.uuid}
+              href={`/player/${encodeURIComponent(player.name_clean)}`}
+              className="group flex items-center gap-4 rounded-2xl border border-white/8 bg-black/20 p-4 transition duration-300 hover:border-emerald-400/35 hover:bg-white/6"
             >
-              {/* 头像容器 */}
-              <div className="relative flex-shrink-0">
-                <img 
-                  src={`https://minotar.net/helm/${player.name_clean}/64.png`} 
-                  alt={player.name_clean}
-                  className="w-10 h-10 rounded-lg shadow-lg group-hover:scale-110 transition-transform duration-300"
-                />
-              </div>
-
-              {/* 名字容器 */}
-              <div className="flex flex-col min-w-0">
-                <span className="text-sm font-bold text-slate-200 truncate group-hover:text-emerald-400 transition-colors">
+              <img
+                src={`https://minotar.net/helm/${player.name_clean}/64.png`}
+                alt={player.name_clean}
+                className="h-14 w-14 rounded-xl border border-white/10 shadow-lg transition duration-300 group-hover:scale-105"
+              />
+              <div className="min-w-0">
+                <p className="truncate text-base font-semibold text-white group-hover:text-emerald-300">
                   {player.name_clean}
-                </span>
-                <span className="text-[10px] text-slate-600 font-mono uppercase">Player</span>
+                </p>
+                <p className="mt-1 text-xs font-mono text-slate-500">UUID: {player.uuid.slice(0, 8)}...</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       ) : (
-        <div className="py-16 text-center border-2 border-dashed border-white/5 rounded-2xl">
-          <p className="text-slate-500 font-medium">荒野中空无一人...</p>
-          <p className="text-xs text-slate-600 mt-1">快上线成为第一个开拓者吧！</p>
+        <div className="rounded-[24px] border border-dashed border-white/10 bg-black/15 px-6 py-14 text-center">
+          <p className="text-lg font-semibold text-white">现在服务器里还没人</p>
+          <p className="mt-2 text-sm leading-6 text-slate-400">
+            这正适合你上线抢第一块领地，或者先去群里喊人一起开荒。
+          </p>
         </div>
       )}
     </div>
