@@ -73,9 +73,9 @@ export default function Home() {
                 <Sparkles className="h-4 w-4" /> XPLUS Survival Server
               </div>
 
-              <h1 className="max-w-5xl text-[2.6rem] font-black leading-[1.08] tracking-[-0.04em] text-white sm:text-6xl lg:text-[5.25rem]">
-                <span className="block">一个适合长期游玩的</span>
-                <span className="mt-2 block bg-gradient-to-r from-emerald-300 via-white to-sky-300 bg-clip-text text-transparent">
+              <h1 className="max-w-[7.5ch] sm:max-w-none whitespace-nowrap text-[2.5rem] font-black leading-[1.08] tracking-[-0.04em] text-white sm:text-6xl lg:text-[5.1rem]">
+                <span>一个适合长期游玩的 </span>
+                <span className="bg-gradient-to-r from-emerald-300 via-cyan-200 to-sky-300 bg-clip-text text-transparent">
                   Minecraft 生存世界
                 </span>
               </h1>

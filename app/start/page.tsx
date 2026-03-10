@@ -37,7 +37,7 @@ const starterSteps = [
       "你可以直接用原版客户端加入；如果更看重帧数优化、小地图和基础体验增强，也可以使用我们准备的推荐整合包。",
     icon: Gamepad2,
     action: {
-      href: "/download/modpack.zip",
+      href: "/download/XPlus1.21.11.mrpack",
       label: "下载推荐整合包",
       external: false,
     },
@@ -117,31 +117,85 @@ export default function StartPage() {
         </div>
       </section>
 
-      <section className="mt-8 grid gap-5 lg:grid-cols-3">
-        {starterSteps.map(({ title, description, icon: Icon, action }, index) => (
-          <div key={title} className="glass-panel rounded-[30px] p-6 sm:p-7">
-            <div className="mb-5 flex items-center justify-between">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/6 text-white">
-                <Icon className="h-6 w-6 text-sky-300" />
-              </div>
-              <span className="text-sm font-black text-slate-500">0{index + 1}</span>
+      <section className="mt-8 space-y-5">
+        <div className="glass-panel rounded-[30px] p-6 sm:p-7">
+          <div className="mb-5 flex items-center justify-between">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/6 text-white">
+              <Monitor className="h-6 w-6 text-sky-300" />
             </div>
-            <h2 className="text-xl font-bold text-white">{title}</h2>
-            <p className="mt-3 text-sm leading-7 text-slate-400">{description}</p>
-            {action ? (
-              <a
-                href={action.href}
-                target={action.external ? "_blank" : undefined}
-                rel={action.external ? "noreferrer" : undefined}
-                download={action.external ? undefined : true}
-                className="mt-6 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/6"
-              >
-                {action.external ? <ExternalLink className="h-4 w-4" /> : <Download className="h-4 w-4" />}
-                {action.label}
-              </a>
-            ) : null}
+            <span className="text-sm font-black text-slate-500">01</span>
           </div>
-        ))}
+          <h2 className="text-xl font-bold text-white">准备启动器或客户端</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-400">
+            如果你已经有 Java 版客户端，直接使用即可。如果还没有，推荐使用 PCL2 作为启动器，界面直观、下载方便，适合新手。
+          </p>
+          <a
+            href="https://pcl2.aoe.top/"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-flex items-center gap-2 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm font-semibold text-white transition hover:bg-white/6"
+          >
+            <ExternalLink className="h-4 w-4" /> 下载 PCL2 启动器
+          </a>
+        </div>
+
+        <div className="glass-panel rounded-[30px] p-6 sm:p-7">
+          <div className="mb-5 flex items-center justify-between">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/6 text-white">
+              <Gamepad2 className="h-6 w-6 text-sky-300" />
+            </div>
+            <span className="text-sm font-black text-slate-500">02</span>
+          </div>
+          <h2 className="text-xl font-bold text-white">准备游戏环境</h2>
+
+          <div className="mt-5 grid md:grid-cols-2 gap-4">
+            <div className="rounded-2xl border border-white/8 bg-black/20 p-6">
+              <h3 className="mb-2 flex items-center gap-2 font-bold text-slate-200">
+                <Wifi className="h-4 w-4 text-emerald-300" /> 原版进入
+              </h3>
+              <p className="text-sm leading-7 text-slate-400">
+                你可以直接用原版客户端加入；如果更看重帧数优化、小地图和基础体验增强，也可以使用我们准备的推荐整合包。
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-sky-400/20 bg-sky-500/8 p-6 ring-1 ring-sky-400/15">
+              <div className="mb-3 flex items-start justify-between">
+                <h3 className="flex items-center gap-2 font-bold text-sky-300">
+                  <Gamepad2 className="h-4 w-4" /> 推荐整合包
+                </h3>
+                <span className="rounded bg-sky-500 px-2 py-0.5 text-[10px] text-white">推荐</span>
+              </div>
+              <ul className="mb-6 space-y-2 text-sm text-slate-300">
+                <li>✓ 内置优化组件，整体帧数表现更稳</li>
+                <li>✓ 包含小地图等常用增强内容</li>
+                <li>✓ 更适合想省事直接开玩的玩家</li>
+              </ul>
+              <a
+                href="/download/XPlus1.21.11.mrpack"
+                download
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-sky-600 px-4 py-3 text-sm font-bold text-white transition hover:bg-sky-500"
+              >
+                <Download className="h-4 w-4" /> 下载 XPLUS 整合包
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="glass-panel rounded-[30px] p-6 sm:p-7">
+          <div className="mb-5 flex items-center justify-between">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/6 text-white">
+              <Wifi className="h-6 w-6 text-sky-300" />
+            </div>
+            <span className="text-sm font-black text-slate-500">03</span>
+          </div>
+          <h2 className="text-xl font-bold text-white">添加服务器并开始游玩</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-400">
+            进入多人游戏后点击“添加服务器”，名称随意填写，地址直接粘贴下方 IP。第一次进服后，建议先熟悉出生点与基础规则。
+          </p>
+          <div className="mt-6">
+            <CopyIP ip={SERVER_IP} />
+          </div>
+        </div>
       </section>
 
       <section className="mt-8 glass-panel rounded-[34px] p-6 sm:p-8">
