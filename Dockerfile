@@ -1,9 +1,11 @@
 # 1. 依赖安装阶段
 FROM node:20-alpine AS deps
-RUN apk add --no-cache libc6-compat python3 make g++
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+ && apk add --no-cache libc6-compat python3 make g++
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm config set registry https://registry.npmmirror.com/ \
+ && npm ci
 
 # 2. 编译阶段
 FROM node:20-alpine AS builder
