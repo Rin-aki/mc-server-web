@@ -102,7 +102,7 @@ export default function StartPage() {
                 href="https://qm.qq.com/q/XRU6o6bOE4"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-bold text-black transition hover:bg-emerald-200"
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-6 py-4 text-sm font-black text-slate-950 transition hover:bg-emerald-400 hover:scale-[1.02] active:scale-95 shadow-md shadow-emerald-500/20"
               >
                 <MessageCircle className="h-4 w-4" /> 加入官方群聊
               </a>

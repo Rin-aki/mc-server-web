@@ -24,11 +24,14 @@ ENV NEXT_TELEMETRY_DISABLED 1
 # 创建非 root 用户以增强安全性
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
+RUN mkdir -p /app/data && chown -R nextjs:nodejs /app/data
 
 # 仅复制必要文件，极大缩小镜像体积
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+VOLUME ["/app/data"]
 
 USER nextjs
 

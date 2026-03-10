@@ -65,32 +65,39 @@ export default function Home() {
 
   return (
     <main className="pb-24">
-      <section className="section-shell px-1 pt-10 sm:pt-16">
-        <div className="glass-panel overflow-hidden rounded-[36px] px-6 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16">
-          <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+      <section className="mx-auto max-w-[1440px] px-4 pt-6 sm:px-8 sm:pt-10">
+        <div className="glass-panel overflow-hidden rounded-[36px] px-6 py-8 sm:px-10 sm:py-12 lg:px-14 lg:py-16">
+          <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.28em] text-emerald-300">
-                <Sparkles className="h-4 w-4" /> XPLUS Survival Server
+              {/* 顶部标签 */}
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-300 sm:text-xs">
+                <Sparkles className="h-3.5 w-3.5" /> XPLUS Survival Server
               </div>
 
-              <h1 className="max-w-[7.5ch] sm:max-w-none whitespace-nowrap text-[2.5rem] font-black leading-[1.08] tracking-[-0.04em] text-white sm:text-6xl lg:text-[5.1rem]">
+              {/* 优化后的标题排版 */}
+              <h1 className="text-balance text-[2.4rem] font-black !leading-[1.1] tracking-[-0.04em] text-white sm:text-[3.8rem] lg:text-[4.5rem] xl:text-[5rem]">
                 <span>一个适合长期游玩的 </span>
-                <span className="bg-gradient-to-r from-emerald-300 via-cyan-200 to-sky-300 bg-clip-text text-transparent">
+                <br className="hidden sm:block" />
+                {/* 移除背景裁剪，改用实体色 + 柔和的文字阴影 */}
+                <span className="text-emerald-400 drop-shadow-[0_0_15px_rgba(52,211,153,0.3)]">
                   Minecraft 生存世界
                 </span>
               </h1>
 
-              <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+              {/* 描述文本优化 */}
+              <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-300 sm:text-lg sm:leading-8">
                 XPLUS 想做的不是“花里胡哨三天就腻”的展示服，而是一个你愿意反复上线、慢慢建家、认识人、留下作品的服务器。
                 如果你喜欢纯净生存、稳定社区和舒服的开荒节奏，这里会挺适合你。
               </p>
 
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+              {/* 按钮组 */}
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
                 <CopyIP ip={SERVER_IP} />
-                <div className="flex flex-wrap gap-3">
+                {/* 给这个 div 增加 flex-1 和 w-full 确保铺满 */}
+                <div className="flex w-full flex-wrap gap-3 sm:w-auto">
                   <Link
                     href="/start"
-                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-4 text-sm font-bold text-black transition hover:bg-emerald-300"
+                    className="flex-1 sm:flex-none sm:min-w-[160px] inline-flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 px-6 py-4 text-sm font-black text-slate-950 transition hover:bg-emerald-400 hover:scale-[1.02] active:scale-95 shadow-md shadow-emerald-500/20"
                   >
                     查看入服指南 <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -98,7 +105,7 @@ export default function Home() {
                     href="https://qm.qq.com/q/XRU6o6bOE4"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center rounded-2xl border border-white/10 bg-black/20 px-6 py-4 text-sm font-semibold text-white transition hover:border-white/20 hover:bg-white/6"
+                    className="flex-1 sm:flex-none sm:min-w-[160px] inline-flex items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-6 py-4 text-sm font-bold text-white transition hover:bg-white/10 hover:scale-[1.02] active:scale-95"
                   >
                     加入官方群聊
                   </a>
@@ -106,14 +113,15 @@ export default function Home() {
               </div>
             </div>
 
+            {/* 右侧卡片部分保持原样或微调间距 */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               {serverHighlights.map(({ title, description, icon: Icon }) => (
-                <div key={title} className="rounded-[28px] border border-white/8 bg-black/20 p-5">
+                <div key={title} className="rounded-[28px] border border-white/8 bg-black/20 p-5 transition hover:border-white/20">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl border border-emerald-400/20 bg-emerald-500/10">
                     <Icon className="h-6 w-6 text-emerald-300" />
                   </div>
                   <h2 className="text-lg font-bold text-white">{title}</h2>
-                  <p className="mt-2 text-sm leading-7 text-slate-400">{description}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{description}</p>
                 </div>
               ))}
             </div>
@@ -121,7 +129,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-shell mt-18 px-1 sm:mt-24">
+      <section className="mx-auto max-w-[1440px] px-4 pt-6 sm:px-8 sm:pt-10">
         <div className="grid gap-5 lg:grid-cols-3">
           {featureCards.map(({ title, description, icon: Icon }) => (
             <div key={title} className="glass-panel rounded-[28px] p-6 sm:p-7">
@@ -135,21 +143,21 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-shell mt-18 grid gap-6 px-1 sm:mt-24 lg:grid-cols-[1.1fr_0.9fr]">
-        <div className="glass-panel rounded-[32px] p-6 sm:p-8">
+      <section className="mx-auto max-w-[1440px] mt-18 grid gap-8 px-4 sm:mt-24 lg:grid-cols-[1.2fr_0.8fr] sm:px-8">
+        <div className="glass-panel rounded-[32px] p-5 sm:p-6">
           <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-slate-400">How to Join</p>
           <h2 className="text-3xl font-black text-white">三步快速加入</h2>
-          <div className="mt-8 space-y-5">
+          <div className="mt-6 space-y-3">
             {joinSteps.map((step, index) => (
-              <div key={step} className="flex gap-4 rounded-2xl border border-white/8 bg-black/20 p-5">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-emerald-500 text-base font-black text-black">
+              <div key={step} className="flex gap-3 rounded-2xl border border-white/8 bg-black/20 p-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500 text-sm font-black text-black">
                   {index + 1}
                 </div>
-                <p className="pt-1 text-sm leading-7 text-slate-300">{step}</p>
+                <p className="text-sm leading-6 text-slate-300">{step}</p>
               </div>
             ))}
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <Link
               href="/start"
               className="inline-flex items-center gap-2 rounded-2xl border border-emerald-400/25 bg-emerald-500/10 px-5 py-3 text-sm font-semibold text-emerald-300 transition hover:bg-emerald-500/18"
@@ -165,14 +173,14 @@ export default function Home() {
           </div>
         </div>
 
-        <ServerStatus ip={SERVER_IP} />
+        <ServerStatus />
       </section>
 
-      <section className="section-shell mt-18 px-1 sm:mt-24">
+      <section className="mx-auto max-w-[1440px] px-4 pt-6 sm:px-8 sm:pt-10">
         <PlayerList ip={SERVER_IP} />
       </section>
 
-      <section className="section-shell mt-18 px-1 sm:mt-24">
+      <section className="mx-auto max-w-[1440px] px-4 pt-6 sm:px-8 sm:pt-10">
         <div className="glass-panel rounded-[36px] px-6 py-10 text-center sm:px-10 sm:py-14">
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-emerald-300">Ready to Play</p>
           <h2 className="text-3xl font-black text-white sm:text-4xl">准备好在 XPLUS 开始你的新存档了吗？</h2>
@@ -185,7 +193,7 @@ export default function Home() {
               href="https://qm.qq.com/q/XRU6o6bOE4"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-4 text-sm font-bold text-black transition hover:bg-emerald-300"
+              className="inline-flex items-center justify-center rounded-2xl bg-emerald-500 px-8 py-4 text-sm font-black text-slate-950 transition hover:bg-emerald-400 hover:scale-[1.02] active:scale-95 shadow-lg shadow-emerald-500/20"
             >
               进入社区群聊
             </a>

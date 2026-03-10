@@ -13,6 +13,8 @@ export default function PlayerList({ ip }: { ip: string }) {
   const [players, setPlayers] = useState<Player[]>([]);
   const [onlineCount, setOnlineCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const hasVisiblePlayers = players.length > 0;
+  const hasHiddenPlayers = !loading && onlineCount > 0 && players.length === 0;
 
   useEffect(() => {
     let ignore = false;
@@ -70,7 +72,7 @@ export default function PlayerList({ ip }: { ip: string }) {
             <div key={index} className="h-20 animate-pulse rounded-2xl border border-white/6 bg-white/4" />
           ))}
         </div>
-      ) : players.length > 0 ? (
+      ) : hasVisiblePlayers ? (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {players.map((player) => (
             <Link
@@ -91,6 +93,13 @@ export default function PlayerList({ ip }: { ip: string }) {
               </div>
             </Link>
           ))}
+        </div>
+      ) : hasHiddenPlayers ? (
+        <div className="rounded-[24px] border border-dashed border-white/10 bg-black/15 px-6 py-14 text-center">
+          <p className="text-lg font-semibold text-white">当前有人在线，但暂时拿不到玩家名单</p>
+          <p className="mt-2 text-sm leading-6 text-slate-400">
+            状态接口已确认服务器内有 {onlineCount} 位玩家，不过这次没有返回具体昵称列表，稍后刷新可能会恢复显示。
+          </p>
         </div>
       ) : (
         <div className="rounded-[24px] border border-dashed border-white/10 bg-black/15 px-6 py-14 text-center">

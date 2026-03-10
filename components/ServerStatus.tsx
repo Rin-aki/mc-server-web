@@ -2,14 +2,20 @@ import type { ReactNode } from "react";
 import { getServerStatus } from "@/lib/mc-server";
 import { Globe, Signal, Users } from "lucide-react";
 
-export default async function ServerStatus({ ip }: { ip: string }) {
-  const data = await getServerStatus(ip);
+const SERVER_IP = "mc.rinakii.com";
+
+export default async function ServerStatus() {
+  const data = await getServerStatus(SERVER_IP);
   const isOnline = Boolean(data.online);
   const playerLabel = isOnline ? `${data.players?.online ?? 0} / ${data.players?.max ?? 0}` : "--";
-  const versionLabel = isOnline ? data.version || "未知版本" : "当前不可用";
+  const versionLabel = isOnline
+    ? typeof data.version === "string"
+      ? data.version
+      : data.version?.name_clean || data.version?.name_raw || "未知版本"
+    : "当前不可用";
   const motd = Array.isArray(data.motd?.clean)
     ? data.motd.clean.join(" ")
-    : data.hostname || "欢迎来到 XPLUS";
+    : data.motd?.clean || data.motd?.raw || data.hostname || "欢迎来到 XPLUS";
 
   return (
     <div className="glass-panel rounded-[28px] p-6 sm:p-8">
@@ -33,14 +39,13 @@ export default async function ServerStatus({ ip }: { ip: string }) {
           <span
             className={`h-2.5 w-2.5 rounded-full ${isOnline ? "bg-emerald-300" : "bg-rose-300"}`}
           />
-          {isOnline ? "在线运行中" : "暂时离线"}
+          {isOnline ? "在线" : "离线"}
         </span>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2">
         <StatusCard icon={<Users className="h-5 w-5 text-emerald-300" />} label="在线人数" value={playerLabel} />
         <StatusCard icon={<Signal className="h-5 w-5 text-sky-300" />} label="服务版本" value={versionLabel} />
-        <StatusCard icon={<Globe className="h-5 w-5 text-violet-300" />} label="连接地址" value={ip} />
       </div>
     </div>
   );

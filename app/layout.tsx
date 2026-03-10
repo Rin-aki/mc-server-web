@@ -18,7 +18,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="zh-CN">
+    <html lang="zh-CN" style={{ colorScheme: 'dark' }}>
+      <head>
+        {/* 关键点 2: 添加 meta 标签 */}
+        <meta name="color-scheme" content="dark" />
+      </head>
       <body className="text-white antialiased">
         <div className="fixed inset-0 -z-20 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.12),_transparent_35%),radial-gradient(circle_at_80%_0%,_rgba(59,130,246,0.12),_transparent_22%)]" />
         <div className="fixed inset-0 -z-10 grid-overlay opacity-40" />

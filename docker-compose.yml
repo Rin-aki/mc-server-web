@@ -1,0 +1,11 @@
+services:
+  mc-server-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mc-server-web
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
