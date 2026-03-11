@@ -19,38 +19,6 @@ const checklist = [
   "首次加入前建议先看一遍服规，避免因为不熟悉规则踩线。",
 ];
 
-const starterSteps = [
-  {
-    title: "准备启动器或客户端",
-    description:
-      "如果你已经有 Java 版客户端，直接使用即可。如果还没有，推荐使用 PCL2 作为启动器，界面直观、下载方便，适合新手。",
-    icon: Monitor,
-    action: {
-      href: "https://pcl2.aoe.top/",
-      label: "下载 PCL2 启动器",
-      external: true,
-    },
-  },
-  {
-    title: "选择原版或整合包进入",
-    description:
-      "你可以直接用原版客户端加入；如果更看重帧数优化、小地图和基础体验增强，也可以使用我们准备的推荐整合包。",
-    icon: Gamepad2,
-    action: {
-      href: "/download/XPlus1.21.11.mrpack",
-      label: "下载推荐整合包",
-      external: false,
-    },
-  },
-  {
-    title: "添加服务器并开始游玩",
-    description:
-      "进入多人游戏后点击“添加服务器”，名称随意填写，地址直接粘贴下方 IP。第一次进服后，建议先熟悉出生点与基础规则。",
-    icon: Wifi,
-    action: null,
-  },
-];
-
 export default function StartPage() {
   const SERVER_IP = "mc.rinakii.com";
 

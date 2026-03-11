@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -80,9 +81,11 @@ export default function PlayerList({ ip }: { ip: string }) {
               href={`/player/${encodeURIComponent(player.name_clean)}`}
               className="group flex items-center gap-4 rounded-2xl border border-white/8 bg-black/20 p-4 transition duration-300 hover:border-emerald-400/35 hover:bg-white/6"
             >
-              <img
+              <Image
                 src={`https://minotar.net/helm/${player.name_clean}/64.png`}
                 alt={player.name_clean}
+                width={56}
+                height={56}
                 className="h-14 w-14 rounded-xl border border-white/10 shadow-lg transition duration-300 group-hover:scale-105"
               />
               <div className="min-w-0">
