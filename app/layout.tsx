@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" style={{ colorScheme: 'dark' }}>
       <head>
-        {/* 关键点 2: 添加 meta 标签 */}
+        {/* 暗黑meta标签 */}
         <meta name="color-scheme" content="dark" />
       </head>
       <body className="text-white antialiased">

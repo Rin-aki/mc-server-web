@@ -87,9 +87,6 @@ export default async function PlayerPage({
             value={formatPlaytime(playerRecord.playtimeMinutes)}
           />
         </div>
-        {/* <p className="mt-5 text-center text-xs text-slate-500">
-          新玩家首次打开档案页时会自动创建数据库记录，之后你可以直接编辑 SQLite 文件补充游玩时长。
-        </p> */}
       </section>
     </main>
   );
