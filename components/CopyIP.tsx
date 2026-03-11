@@ -1,7 +1,7 @@
-"use client"; // 声明这是客户端组件
+"use client";
 
 import { useState } from "react";
-import { Copy, Check } from "lucide-react";
+import { Check, Copy } from "lucide-react";
 
 export default function CopyIP({ ip }: { ip: string }) {
   const [copied, setCopied] = useState(false);
@@ -10,39 +10,42 @@ export default function CopyIP({ ip }: { ip: string }) {
     try {
       await navigator.clipboard.writeText(ip);
       setCopied(true);
-      // 2秒后恢复图标状态
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("无法复制到剪贴板", err);
+      setTimeout(() => setCopied(false), 2200);
+    } catch (error) {
+      console.error("复制失败", error);
     }
   };
 
   return (
-    <div className="relative group w-full max-w-xs">
+    <div className="relative w-full max-w-md">
       <button
         onClick={handleCopy}
-        className="flex items-center justify-between w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-xl hover:border-emerald-500 hover:bg-slate-800 transition-all duration-300"
+        className="group glass-panel flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left transition duration-300 hover:border-emerald-400/35 hover:bg-white/8"
       >
-        <div className="flex flex-col items-start">
-          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">点击加入</span>
-          <code className="text-emerald-400 font-mono font-medium">{ip}</code>
+        <div className="min-w-0">
+          <p className="mb-1 text-[11px] font-bold uppercase tracking-[0.28em] text-slate-400">
+            Server IP
+          </p>
+          <code className="block truncate text-lg font-semibold text-emerald-300 sm:text-xl">
+            {ip}
+          </code>
+          <p className="mt-1 text-xs text-slate-400">点击即可复制，直接粘贴到多人游戏服务器地址。</p>
         </div>
-        
-        <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 group-hover:bg-emerald-500/10 group-hover:border-emerald-500/50 transition-colors">
+
+        <span className="ml-4 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black/35 transition group-hover:border-emerald-400/30 group-hover:bg-emerald-500/10">
           {copied ? (
-            <Check className="w-4 h-4 text-emerald-500" />
+            <Check className="h-5 w-5 text-emerald-300" />
           ) : (
-            <Copy className="w-4 h-4 text-slate-400 group-hover:text-white" />
+            <Copy className="h-5 w-5 text-slate-300" />
           )}
-        </div>
+        </span>
       </button>
 
-      {/* 飘出的“已复制”小气泡 */}
-      {copied && (
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded shadow-lg animate-in fade-in zoom-in slide-in-from-bottom-2 duration-200">
-          已成功复制 IP!
+      {copied ? (
+        <div className="absolute -top-11 left-1/2 -translate-x-1/2 rounded-full border border-emerald-400/30 bg-emerald-500 px-3 py-1 text-xs font-semibold text-white shadow-lg shadow-emerald-500/20">
+          已复制到剪贴板
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
