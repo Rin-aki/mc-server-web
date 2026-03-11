@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Clock3, ShieldCheck, Timer } from "lucide-react";
 import { formatLastSeen, formatPlaytime, getOrCreatePlayerRecord, touchPlayerLastSeen } from "@/lib/player-db";
@@ -61,9 +62,11 @@ export default async function PlayerPage({
 
       <section className="glass-panel rounded-[36px] px-6 py-10 sm:px-10 sm:py-12">
         <div className="flex flex-col items-center text-center">
-          <img
+          <Image
             src={`https://minotar.net/armor/body/${encodeURIComponent(username)}/220.png`}
             alt={username}
+            width={128}
+            height={208}
             className="h-52 w-32 object-contain drop-shadow-[0_24px_40px_rgba(0,0,0,0.45)]"
           />
           <p className="mt-4 text-xs font-bold uppercase tracking-[0.3em] text-slate-400">Player Status</p>
